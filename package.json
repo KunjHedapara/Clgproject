@@ -33,6 +33,7 @@
     "lottie-react-native": "^5.1.4",
     "moment": "^2.29.4",
     "native-base": "^3.4.18",
+    "node-modules": "^1.0.1",
     "react": "18.1.0",
     "react-i18next": "^11.18.6",
     "react-native": "0.70.3",
