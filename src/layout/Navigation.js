@@ -8,6 +8,7 @@ import Reset from '../screens/Reset';
 import SignUp from '../screens/SignUp';
 import Varification from '../screens/Varification';
 import DrawerNavigation from '../layout/DrawerNavigation';
+import Holiday from '../screens/Holiday';
 
 const Navigation = () => {
 

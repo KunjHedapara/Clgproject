@@ -7,19 +7,22 @@ import Login from "../screens/Login";
 import Home from "../screens/Home";
 import Leave from "../screens/Leave";
 import Attendance from "../screens/Attendance";
+import AddImage from "../screens/addImage/AddImage";
+import { useEffect } from "react";
 
 const Drawer = createDrawerNavigator();
 
-const DrawerNavigation = () => {
+const DrawerNavigation = ({ route }) => {
 
     return (
         <Drawer.Navigator >
-            <Drawer.Screen name="Home" component={Home} />
+            <Drawer.Screen name="Home" component={Home} initialParams={{ data: route.params.userData }} />
             <Drawer.Screen name="Profile" component={Profile} />
             <Drawer.Screen name="Attendance" component={Attendance} />
             <Drawer.Screen name="Holiday" component={Holiday} />
-            <Drawer.Screen name="Leave" component={Leave} />
+            <Drawer.Screen name="AddImage" component={AddImage} />
             <Drawer.Screen name="Logout" component={Login} options={{ headerShown: false }} />
+
         </Drawer.Navigator>
     )
 }

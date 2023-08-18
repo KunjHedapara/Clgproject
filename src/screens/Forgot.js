@@ -1,9 +1,58 @@
 import { Box, Button, Stack, View } from 'native-base';
 import React from 'react';
-import { ImageBackground, Text, StyleSheet, TextInput, } from 'react-native';
+import { useState } from 'react';
+import { ImageBackground, Text, StyleSheet, TextInput, Alert, } from 'react-native';
+import { sendOtp, verifyEmail } from '../services/Services';
+import { useNavigation } from '@react-navigation/native';
 
 
 const Forgot = (props) => {
+
+    const [email, setEmail] = useState("")
+
+    const navigation = useNavigation()
+
+    const verifyEmailId = () => {
+
+        verifyEmail({ emailId: email }, verified, failed)
+
+    }
+
+    const verified = (result) => {
+
+        if (result == 1) {
+
+
+            sendOtp({ emailId: email }, mailSent, sentFail)
+
+
+
+        }
+        else {
+            Alert.alert("Error", "Please enter valid email id")
+        }
+
+    }
+
+    const mailSent = (res) => {
+
+        console.log('res', res)
+        navigation.navigate('Varification', { status: res, email: email })
+
+    }
+
+    const sentFail = (res) => {
+
+    }
+
+
+
+    const failed = (result) => {
+
+
+        Alert.alert("Error", "Error while sending the email")
+
+    }
 
 
     return (
@@ -11,11 +60,11 @@ const Forgot = (props) => {
             <Box><Text style={{ fontSize: 30, top: -110, textAlign: 'center', color: 'black' }}>Forgot Password</Text></Box>
             <Stack space={3} alignItems="center">
                 <Text style={styles.emailText}>Enter Email Address</Text>
-                <TextInput placeholder="Email" placeholderTextColor="gray" style={styles.input} />
+                <TextInput placeholder="Email" onChangeText={text => setEmail(text)} placeholderTextColor="gray" style={styles.input} />
                 <Text style={{ fontSize: 20 }}
                     onPress={() => props.navigation.navigate('Login')}>Back to login</Text>
-                <Button onPress={() => props.navigation.navigate('Varification')} style={styles.btn}>
-                    <Text style={{ fontSize: 20, color: '#fff' }}>Send</Text>
+                <Button onPress={verifyEmailId} style={styles.btn}>
+                    <Text style={{ fontSize: 20, color: 'black' }}>Send</Text>
                 </Button>
             </Stack>
         </Box>
@@ -34,14 +83,14 @@ const styles = StyleSheet.create({
         fontSize: 20,
         borderBottomWidth: 2,
         color: 'gray',
-        borderBottomColor: 'gray',
+        borderBottomColor: 'black',
         width: 300,
         marginVertical: 20
     },
     btn: {
         width: 300,
         borderRadius: 0,
-        backgroundColor: 'orange',
+        backgroundColor: 'lightblue',
         marginTop: 20
     },
 })
